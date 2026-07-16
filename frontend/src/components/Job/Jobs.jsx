@@ -12,7 +12,7 @@ const Jobs = () => {
   useEffect(() => {
     try {
       axios
-        .get("http://localhost:4000/api/v1/job/getall", {
+        .get("https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/getall", {
           withCredentials: true,
         })
         .then((res) => {
@@ -28,7 +28,7 @@ const Jobs = () => {
   const saveJob = async (jobId) => {
   try {
     const { data } = await axios.put(
-      `http://localhost:4000/api/v1/user/save-job/${jobId}`,
+      `https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/save-job/${jobId}`,
       {},
       {
         withCredentials: true,

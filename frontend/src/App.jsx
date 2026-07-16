@@ -34,7 +34,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/user/getuser",
+          "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/getuser",
           {
             withCredentials: true,
           }

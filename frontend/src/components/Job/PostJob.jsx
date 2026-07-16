@@ -66,7 +66,7 @@ const PostJob = () => {
             };
 
       const res = await axios.post(
-        "http://localhost:4000/api/v1/job/post",
+        "https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/post",
         jobData,
         {
           withCredentials: true,

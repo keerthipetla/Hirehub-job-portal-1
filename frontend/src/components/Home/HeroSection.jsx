@@ -15,7 +15,7 @@ const HeroSection = () => {
 });
 useEffect(() => {
   axios
-    .get("http://localhost:4000/api/v1/dashboard/stats")
+    .get("https://hirehub-job-portal-6ed0.onrender.com/api/v1/dashboard/stats")
     .then((res) => {
       setStats(res.data);
     })

@@ -9,7 +9,7 @@ const SavedJobs = () => {
     const fetchSavedJobs = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/saved-jobs",
+          "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/saved-jobs",
           {
             withCredentials: true,
           }
@@ -28,7 +28,7 @@ const SavedJobs = () => {
   try {
 
     const { data } = await axios.put(
-      `http://localhost:4000/api/v1/user/unsave-job/${jobId}`,
+      `https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/unsave-job/${jobId}`,
       {},
       {
         withCredentials: true,

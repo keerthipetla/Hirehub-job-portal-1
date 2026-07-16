@@ -14,7 +14,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/api/v1/job/${id}`, {
+      .get(`https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/${id}`, {
         withCredentials: true,
       })
       .then((res) => {

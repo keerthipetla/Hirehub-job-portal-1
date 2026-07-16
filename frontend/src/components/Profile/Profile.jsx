@@ -32,7 +32,7 @@ const [avatarPreview, setAvatarPreview] = useState("");
 
         const { data } =
           await axios.put(
-            "http://localhost:4000/api/v1/user/update-profile",
+            "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/update-profile",
             {
               name,
               email,
