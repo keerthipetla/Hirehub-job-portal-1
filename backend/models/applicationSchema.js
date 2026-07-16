@@ -59,6 +59,18 @@ const applicationSchema = new mongoose.Schema({
       required: true,
     },
   },
+  status: {
+  type: String,
+  enum: [
+    "Applied",
+    "Under Review",
+    "Interview",
+    "Selected",
+    "Rejected",
+  ],
+  default: "Applied",
+},
 });
+
 
 export const Application = mongoose.model("Application", applicationSchema);

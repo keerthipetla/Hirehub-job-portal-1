@@ -1,3 +1,4 @@
+import { FaUsers } from "react-icons/fa";
 import React, { useContext, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -50,11 +51,21 @@ const Register = () => {
 
   return (
     <>
-      <section className="authPage">
+      <section className=" registerPage">
         <div className="container">
           <div className="header">
-            <img src="/JobZeelogo.png" alt="logo" />
-            <h3>Create a new account</h3>
+          <div className="hirehubLogo">
+            <FaUsers />
+              <h2>
+                Hire<span>Hub</span>
+                </h2>
+                 </div>
+            <h3>Create Your Account</h3>
+ 
+            <p className="subtitle">
+              Join HireHub and connect with top employers
+               and exciting career opportunities.
+               </p>
           </div>
           <form>
             <div className="inputTag">
@@ -73,7 +84,7 @@ const Register = () => {
               <div>
                 <input
                   type="text"
-                  placeholder="Zeeshan"
+                  placeholder="Enter Your Full Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -85,7 +96,7 @@ const Register = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="zk@gmail.com"
+                  placeholder="..@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -97,7 +108,7 @@ const Register = () => {
               <div>
                 <input
                   type="number"
-                  placeholder="12345678"
+                  placeholder="Enter Your Phone Number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -109,7 +120,7 @@ const Register = () => {
               <div>
                 <input
                   type="password"
-                  placeholder="Your Password"
+                  placeholder="Create Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -117,13 +128,14 @@ const Register = () => {
               </div>
             </div>
             <button type="submit" onClick={handleRegister}>
-              Register
+              Create Account
             </button>
-            <Link to={"/login"}>Login Now</Link>
+            <p className="loginText">Already have an account?</p>
+                 <Link to={"/login"}>Login Now</Link>
           </form>
         </div>
         <div className="banner">
-          <img src="/register.png" alt="login" />
+          <img src="/login.png" alt="login" />
         </div>
       </section>
     </>

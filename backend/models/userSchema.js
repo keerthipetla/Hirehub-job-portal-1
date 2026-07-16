@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -9,6 +10,9 @@ const userSchema = new mongoose.Schema({
     minLength: [3, "Name must contain at least 3 Characters!"],
     maxLength: [30, "Name cannot exceed 30 Characters!"],
   },
+  avatar: {
+  type: String,
+},
   email: {
     type: String,
     required: [true, "Please enter your Email!"],
@@ -30,17 +34,26 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please select a role"],
     enum: ["Job Seeker", "Employer"],
   },
+  savedJobs: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Job",
+  },
+],
   createdAt: {
     type: Date,
     default: Date.now,
+
   },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
 });
 
 
 //ENCRYPTING THE PASSWORD WHEN THE USER REGISTERS OR MODIFIES HIS PASSWORD
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
-    next();
+    return next();
   }
   this.password = await bcrypt.hash(this.password, 10);
 });
@@ -52,9 +65,23 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 
 //GENERATING A JWT TOKEN WHEN A USER REGISTERS OR LOGINS, IT DEPENDS ON OUR CODE THAT WHEN DO WE NEED TO GENERATE THE JWT TOKEN WHEN THE USER LOGIN OR REGISTER OR FOR BOTH. 
 userSchema.methods.getJWTToken = function () {
+  console.log("JWT Secret:", process.env.JWT_SECRET_KEY);
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.JWT_EXPIRES,
+    expiresIn: process.env.JWT_EXPIRE_TIME,
   });
+};
+userSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.resetPasswordExpire =
+    Date.now() + 15 * 60 * 1000;
+
+  return resetToken;
 };
 
 export const User = mongoose.model("User", userSchema);

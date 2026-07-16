@@ -3,6 +3,7 @@ import ErrorHandler from "../middlewares/error.js";
 import { Application } from "../models/applicationSchema.js";
 import { Job } from "../models/jobSchema.js";
 import cloudinary from "cloudinary";
+import { sendEmail } from "../utils/sendEmail.js";
 
 export const postApplication = catchAsyncErrors(async (req, res, next) => {
   const { role } = req.user;
@@ -16,7 +17,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
   }
 
   const { resume } = req.files;
-  const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
+  const allowedFormats = ["image/png", "image/jpeg", "image/webp","application/pdf"];
   if (!allowedFormats.includes(resume.mimetype)) {
     return next(
       new ErrorHandler("Invalid file type. Please upload a PNG file.", 400)
@@ -134,5 +135,53 @@ export const jobseekerDeleteApplication = catchAsyncErrors(
       success: true,
       message: "Application Deleted!",
     });
+  }
+);
+export const updateApplicationStatus = catchAsyncErrors(
+  async (req, res, next) => {
+    const { role } = req.user;
+
+    if (role === "Job Seeker") {
+      return next(
+        new ErrorHandler(
+          "Job Seeker not allowed to access this resource.",
+          400
+        )
+      );
+    }
+
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const application = await Application.findById(id);
+
+    if (!application) {
+      return next(new ErrorHandler("Application not found!", 404));
+    }
+
+   application.status = status;
+
+await application.save();
+
+await sendEmail(
+  application.email,
+  "Application Status Updated - HireHub",
+  `Hello ${application.name},
+
+Your application status has been updated.
+
+New Status: ${status}
+
+Please login to HireHub for more details.
+
+Regards,
+HireHub Team`
+);
+
+res.status(200).json({
+  success: true,
+  message: "Application Status Updated!",
+  application,
+});
   }
 );

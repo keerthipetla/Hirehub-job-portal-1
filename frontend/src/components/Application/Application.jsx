@@ -1,8 +1,10 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
+
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "../../main";
+
 const Application = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -49,18 +51,18 @@ const Application = () => {
       setCoverLetter("");
       setPhone("");
       setAddress("");
-      setResume("");
+      setResume("null");
       toast.success(data.message);
       navigateTo("/job/getall");
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
-
+   useEffect(() => {
   if (!isAuthorized || (user && user.role === "Employer")) {
     navigateTo("/");
   }
-
+    }, [isAuthorized, user, navigateTo]);
   return (
     <section className="application">
       <div className="container">

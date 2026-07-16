@@ -1,9 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import "./App.css";
 import { Context } from "./main";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Navbar from "./components/Layout/Navbar";
@@ -16,9 +22,14 @@ import MyApplications from "./components/Application/MyApplications";
 import PostJob from "./components/Job/PostJob";
 import NotFound from "./components/NotFound/NotFound";
 import MyJobs from "./components/Job/MyJobs";
+import SavedJobs from "./components/Job/SavedJobs";
+import Profile from "./components/Profile/Profile";
+
 
 const App = () => {
   const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
+  const [darkMode, setDarkMode] =
+  useState(false);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -38,12 +49,29 @@ const App = () => {
   }, [isAuthorized]);
 
   return (
-    <>
+  <div
+    className={
+      darkMode ? "dark-mode" : ""
+    }
+  >
       <BrowserRouter>
-        <Navbar />
+      <Navbar
+  darkMode={darkMode}
+  setDarkMode={setDarkMode}
+/>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+         <Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+
+<Route
+  path="/password/forgot"
+  element={<ForgotPassword />}
+/>
+
+<Route
+  path="/password/reset/:token"
+  element={<ResetPassword />}
+/>
           <Route path="/" element={<Home />} />
           <Route path="/job/getall" element={<Jobs />} />
           <Route path="/job/:id" element={<JobDetails />} />
@@ -51,12 +79,21 @@ const App = () => {
           <Route path="/applications/me" element={<MyApplications />} />
           <Route path="/job/post" element={<PostJob />} />
           <Route path="/job/me" element={<MyJobs />} />
+
+<Route
+  path="/saved-jobs"
+  element={<SavedJobs />}
+/>
+<Route
+  path="/profile"
+  element={<Profile />}
+/>
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
         <Toaster />
       </BrowserRouter>
-    </>
+    </div>
   );
 };
 

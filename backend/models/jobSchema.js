@@ -7,6 +7,13 @@ const jobSchema = new mongoose.Schema({
     minLength: [3, "Title must contain at least 3 Characters!"],
     maxLength: [30, "Title cannot exceed 30 Characters!"],
   },
+  companyName: {
+  type: String,
+  required: [true, "Please provide company name."],
+},
+companyWebsite: {
+  type: String,
+},
   description: {
     type: String,
     required: [true, "Please provide decription."],
@@ -30,6 +37,24 @@ const jobSchema = new mongoose.Schema({
     required: [true, "Please provide location."],
     minLength: [20, "Location must contian at least 20 characters!"],
   },
+ jobType: {
+  type: String,
+  required: [true, "Please provide a job type."],
+  enum: [
+    "Full Time",
+    "Part Time",
+    "Internship",
+    'Remote',
+    "Contract",
+    "Freelance"
+  ],
+},
+experience: {
+  type: String,
+},
+requirements: {
+  type: String,
+},
   fixedSalary: {
     type: Number,
     minLength: [4, "Salary must contain at least 4 digits"],

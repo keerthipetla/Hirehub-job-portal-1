@@ -41,23 +41,42 @@ const MyApplications = () => {
   if (!isAuthorized) {
     navigateTo("/");
   }
-
   const deleteApplication = (id) => {
-    try {
-      axios
-        .delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          toast.success(res.data.message);
-          setApplications((prevApplication) =>
-            prevApplication.filter((application) => application._id !== id)
-          );
-        });
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
+  try {
+    axios
+      .delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        toast.success(res.data.message);
+        setApplications((prevApplication) =>
+          prevApplication.filter((application) => application._id !== id)
+        );
+      });
+  } catch (error) {
+    toast.error(error.response.data.message);
+  }
+};
+
+const updateStatus = async (id, status) => {
+  try {
+    const { data } = await axios.put(
+      `http://localhost:4000/api/v1/application/status/${id}`,
+      { status },
+      { withCredentials: true }
+    );
+
+    toast.success(data.message);
+
+    setApplications((prev) =>
+      prev.map((app) =>
+        app._id === id ? { ...app, status } : app
+      )
+    );
+  } catch (error) {
+    toast.error(error.response?.data?.message);
+  }
+};
 
   const openModal = (imageUrl) => {
     setResumeImageUrl(imageUrl);
@@ -105,6 +124,7 @@ const MyApplications = () => {
                   element={element}
                   key={element._id}
                   openModal={openModal}
+                  updateStatus={updateStatus}
                 />
               );
             })
@@ -140,6 +160,9 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
           <p>
             <span>CoverLetter:</span> {element.coverLetter}
           </p>
+          <p>
+        <span>Application Status:</span> {element.status}
+         </p>
         </div>
         <div className="resume">
           <img
@@ -158,7 +181,7 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
   );
 };
 
-const EmployerCard = ({ element, openModal }) => {
+const EmployerCard = ({ element, openModal, updateStatus }) => {
   return (
     <>
       <div className="job_seeker_card">
@@ -178,6 +201,22 @@ const EmployerCard = ({ element, openModal }) => {
           <p>
             <span>CoverLetter:</span> {element.coverLetter}
           </p>
+          <p>
+  <span>Status:</span>
+</p>
+
+<select
+  value={element.status}
+  onChange={(e) =>
+    updateStatus(element._id, e.target.value)
+  }
+>
+  <option value="Applied">Applied</option>
+  <option value="Under Review">Under Review</option>
+  <option value="Interview">Interview</option>
+  <option value="Selected">Selected</option>
+  <option value="Rejected">Rejected</option>
+</select>
         </div>
         <div className="resume">
           <img

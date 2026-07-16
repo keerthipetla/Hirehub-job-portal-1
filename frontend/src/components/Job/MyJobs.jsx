@@ -113,6 +113,22 @@ const MyJobs = () => {
                           />
                         </div>
                         <div>
+  <span>Company Name:</span>
+  <input
+    type="text"
+    disabled={editingMode !== element._id}
+    value={element.companyName}
+    onChange={(e) =>
+      handleInputChange(
+        element._id,
+        "companyName",
+        e.target.value
+      )
+    }
+    placeholder="Company Name"
+  />
+</div>
+                        <div>
                           {" "}
                           <span>Country:</span>
                           <input
@@ -195,6 +211,45 @@ const MyJobs = () => {
                           </select>
                         </div>
                         <div>
+  <span>Company Website:</span>
+  <input
+    type="url"
+    disabled={editingMode !== element._id}
+    value={element.companyWebsite || ""}
+    onChange={(e) =>
+      handleInputChange(
+        element._id,
+        "companyWebsite",
+        e.target.value
+      )
+    }
+    placeholder="https://www.example.com"
+  />
+</div>
+<div>
+  <span>Experience:</span>
+
+  <select
+    disabled={editingMode !== element._id}
+    value={element.experience || ""}
+    onChange={(e) =>
+      handleInputChange(
+        element._id,
+        "experience",
+        e.target.value
+      )
+    }
+  >
+    <option value="">Select Experience</option>
+    <option value="Fresher">Fresher</option>
+    <option value="0-1 Years">0-1 Years</option>
+    <option value="1-3 Years">1-3 Years</option>
+    <option value="3-5 Years">3-5 Years</option>
+    <option value="5+ Years">5+ Years</option>
+  </select>
+</div>
+                        <div>
+                          
                           <span>
                             Salary:{" "}
                             {element.fixedSalary ? (
@@ -267,42 +322,57 @@ const MyJobs = () => {
                           </select>
                         </div>
                       </div>
-                      <div className="long_field">
-                        <div>
-                          <span>Description:</span>{" "}
-                          <textarea
-                            rows={5}
-                            value={element.description}
-                            disabled={
-                              editingMode !== element._id ? true : false
-                            }
-                            onChange={(e) =>
-                              handleInputChange(
-                                element._id,
-                                "description",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </div>
-                        <div>
-                          <span>Location: </span>
-                          <textarea
-                            value={element.location}
-                            rows={5}
-                            disabled={
-                              editingMode !== element._id ? true : false
-                            }
-                            onChange={(e) =>
-                              handleInputChange(
-                                element._id,
-                                "location",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </div>
-                      </div>
+                     <div className="long_field">
+
+  <div>
+    <span>Requirements:</span>
+    <textarea
+      rows={4}
+      disabled={editingMode !== element._id}
+      value={element.requirements || ""}
+      onChange={(e) =>
+        handleInputChange(
+          element._id,
+          "requirements",
+          e.target.value
+        )
+      }
+    />
+  </div>
+
+  <div>
+    <span>Description:</span>
+    <textarea
+      rows={5}
+      value={element.description}
+      disabled={editingMode !== element._id}
+      onChange={(e) =>
+        handleInputChange(
+          element._id,
+          "description",
+          e.target.value
+        )
+      }
+    />
+  </div>
+
+  <div>
+    <span>Location:</span>
+    <textarea
+      rows={5}
+      value={element.location}
+      disabled={editingMode !== element._id}
+      onChange={(e) =>
+        handleInputChange(
+          element._id,
+          "location",
+          e.target.value
+        )
+      }
+    />
+  </div>
+
+</div>
                     </div>
                     {/* Out Of Content Class */}
                     <div className="button_wrapper">

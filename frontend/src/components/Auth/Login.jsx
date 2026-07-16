@@ -1,3 +1,4 @@
+import { FaUsers } from "react-icons/fa";
 import React, { useContext, useState } from "react";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
@@ -15,6 +16,8 @@ const Login = () => {
   const { isAuthorized, setIsAuthorized } = useContext(Context);
 
   const handleLogin = async (e) => {
+
+  console.log("Login Clicked");
     e.preventDefault();
     try {
       const { data } = await axios.post(
@@ -33,7 +36,8 @@ const Login = () => {
       setRole("");
       setIsAuthorized(true);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(
+  error.response?.data?.message || "Login failed")
     }
   };
 
@@ -43,13 +47,24 @@ const Login = () => {
 
   return (
     <>
-      <section className="authPage">
+      <section className="loginPage">
         <div className="container">
           <div className="header">
-            <img src="/JobZeelogo.png" alt="logo" />
-            <h3>Login to your account</h3>
-          </div>
-          <form>
+          <div className="logo-area">
+          <FaUsers className="logo-icon" />
+          <h1 className="hirehub-logo">HireHub</h1>
+            </div>
+           <div className="tagline-wrapper">
+           <span className="line"></span>
+            <p className="tagline">Smart Career Platform</p>
+            <span className="line"></span>
+               </div>
+           <h3>Login to your account</h3>
+             <p className="welcome-text">
+               Welcome back! Please login to continue
+                 </p>
+           </div>
+          <form onSubmit={handleLogin}>
             <div className="inputTag">
               <label>Login As</label>
               <div>
@@ -66,7 +81,7 @@ const Login = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="zk@gmail.com"
+                  placeholder="..@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -85,14 +100,23 @@ const Login = () => {
                 <RiLock2Fill />
               </div>
             </div>
-            <button type="submit" onClick={handleLogin}>
-              Login
-            </button>
-            <Link to={"/register"}>Register Now</Link>
+          <button type="submit">
+  Login
+</button>
+
+<div className="auth-links">
+  <Link to="/password/forgot">
+    Forgot Password?
+  </Link>
+
+  <Link to="/register">
+    Register Now
+  </Link>
+</div>
           </form>
         </div>
         <div className="banner">
-          <img src="/login.png" alt="login" />
+          <img src="/Register-logo.png" alt="login" />
         </div>
       </section>
     </>
