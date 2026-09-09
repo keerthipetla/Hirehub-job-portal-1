@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../main";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import toast from "react-hot-toast";
 import { GiHamburgerMenu } from "react-icons/gi";
 import {
@@ -29,7 +30,7 @@ const notifications = [
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/logout",
+        `${API_BASE_URL}/api/v1/user/logout`,
         {
           withCredentials: true,
         }

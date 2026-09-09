@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../main";
 import toast from "react-hot-toast";
@@ -12,7 +13,7 @@ const Jobs = () => {
   useEffect(() => {
     try {
       axios
-        .get("https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/getall", {
+        .get(`${API_BASE_URL}/api/v1/job/getall`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -28,7 +29,7 @@ const Jobs = () => {
   const saveJob = async (jobId) => {
   try {
     const { data } = await axios.put(
-      `https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/save-job/${jobId}`,
+      `${API_BASE_URL}/api/v1/user/save-job/${jobId}`,
       {},
       {
         withCredentials: true,

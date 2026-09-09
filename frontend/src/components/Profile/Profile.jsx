@@ -3,6 +3,7 @@ import React, {
   useState,
 } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
 import { FaUserCircle } from "react-icons/fa";
@@ -32,7 +33,7 @@ const [avatarPreview, setAvatarPreview] = useState("");
 
         const { data } =
           await axios.put(
-            "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/update-profile",
+            `${API_BASE_URL}/api/v1/user/update-profile`,
             {
               name,
               email,

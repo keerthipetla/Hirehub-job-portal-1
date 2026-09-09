@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import { Link } from "react-router-dom";
 
 const SavedJobs = () => {
@@ -9,7 +10,7 @@ const SavedJobs = () => {
     const fetchSavedJobs = async () => {
       try {
         const { data } = await axios.get(
-          "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/saved-jobs",
+          `${API_BASE_URL}/api/v1/user/saved-jobs`,
           {
             withCredentials: true,
           }
@@ -28,7 +29,7 @@ const SavedJobs = () => {
   try {
 
     const { data } = await axios.put(
-      `https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/unsave-job/${jobId}`,
+      `${API_BASE_URL}/api/v1/user/unsave-job/${jobId}`,
       {},
       {
         withCredentials: true,

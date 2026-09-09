@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Context } from "../../main";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import { FaBuilding, FaSuitcase, FaUsers, FaUserPlus } from "react-icons/fa";
 import CountUp from "react-countup";
 
@@ -15,7 +16,7 @@ const HeroSection = () => {
 });
 useEffect(() => {
   axios
-    .get("https://hirehub-job-portal-6ed0.onrender.com/api/v1/dashboard/stats")
+    .get(`${API_BASE_URL}/api/v1/dashboard/stats`)
     .then((res) => {
       setStats(res.data);
     })

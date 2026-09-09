@@ -7,6 +7,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
 
@@ -23,7 +24,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/register",
+        `${API_BASE_URL}/api/v1/user/register`,
         { name, phone, email, role, password },
         {
           headers: {

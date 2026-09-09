@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCheck } from "react-icons/fa6";
@@ -17,7 +18,7 @@ const MyJobs = () => {
     const fetchJobs = async () => {
       try {
         const { data } = await axios.get(
-          "https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/getmyjobs",
+          `${API_BASE_URL}/api/v1/job/getmyjobs`,
           { withCredentials: true }
         );
         setMyJobs(data.myJobs);
@@ -47,7 +48,7 @@ const MyJobs = () => {
   const handleUpdateJob = async (jobId) => {
     const updatedJob = myJobs.find((job) => job._id === jobId);
     await axios
-      .put(`https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/update/${jobId}`, updatedJob, {
+      .put(`${API_BASE_URL}/api/v1/job/update/${jobId}`, updatedJob, {
         withCredentials: true,
       })
       .then((res) => {
@@ -62,7 +63,7 @@ const MyJobs = () => {
   //Function For Deleting Job
   const handleDeleteJob = async (jobId) => {
     await axios
-      .delete(`https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/delete/${jobId}`, {
+      .delete(`${API_BASE_URL}/api/v1/job/delete/${jobId}`, {
         withCredentials: true,
       })
       .then((res) => {

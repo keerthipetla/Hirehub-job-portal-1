@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -20,7 +21,7 @@ const ResetPassword = () => {
 
     try {
       const { data } = await axios.put(
-        `https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/password/reset/${token}`,
+        `${API_BASE_URL}/api/v1/user/password/reset/${token}`,
         { password }
       );
 

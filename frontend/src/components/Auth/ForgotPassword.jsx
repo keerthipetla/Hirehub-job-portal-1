@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
@@ -10,7 +11,7 @@ const ForgotPassword = () => {
 
     try {
       const { data } = await axios.post(
-        "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/password/forgot",
+        `${API_BASE_URL}/api/v1/user/password/forgot`,
         { email }
       );
 

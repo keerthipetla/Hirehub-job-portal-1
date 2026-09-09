@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import { Context } from "../../main";
 import toast from "react-hot-toast";
 
@@ -14,7 +15,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://hirehub-job-portal-6ed0.onrender.com/api/v1/job/${id}`, {
+      .get(`${API_BASE_URL}/api/v1/job/${id}`, {
         withCredentials: true,
       })
       .then((res) => {

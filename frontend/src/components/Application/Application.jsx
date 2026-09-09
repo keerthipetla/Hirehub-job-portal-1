@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import React, { useContext, useState,useEffect } from "react";
 
 import toast from "react-hot-toast";
@@ -37,7 +38,7 @@ const Application = () => {
 
     try {
       const { data } = await axios.post(
-        "https://hirehub-job-portal-6ed0.onrender.com/api/v1/application/post",
+        `${API_BASE_URL}/api/v1/application/post`,
         formData,
         {
           withCredentials: true,

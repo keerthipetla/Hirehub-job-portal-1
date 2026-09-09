@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../main";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ResumeModal from "./ResumeModal";
@@ -18,7 +19,7 @@ const MyApplications = () => {
     try {
       if (user && user.role === "Employer") {
         axios
-          .get("https://hirehub-job-portal-6ed0.onrender.com/api/v1/application/employer/getall", {
+          .get(`${API_BASE_URL}/api/v1/application/employer/getall`, {
             withCredentials: true,
           })
           .then((res) => {
@@ -26,7 +27,7 @@ const MyApplications = () => {
           });
       } else {
         axios
-          .get("https://hirehub-job-portal-6ed0.onrender.com/api/v1/application/jobseeker/getall", {
+          .get(`${API_BASE_URL}/api/v1/application/jobseeker/getall`, {
             withCredentials: true,
           })
           .then((res) => {
@@ -44,7 +45,7 @@ const MyApplications = () => {
   const deleteApplication = (id) => {
   try {
     axios
-      .delete(`https://hirehub-job-portal-6ed0.onrender.com/api/v1/application/delete/${id}`, {
+      .delete(`${API_BASE_URL}/api/v1/application/delete/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -61,7 +62,7 @@ const MyApplications = () => {
 const updateStatus = async (id, status) => {
   try {
     const { data } = await axios.put(
-      `https://hirehub-job-portal-6ed0.onrender.com/api/v1/application/status/${id}`,
+      `${API_BASE_URL}/api/v1/application/status/${id}`,
       { status },
       { withCredentials: true }
     );

@@ -12,6 +12,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import ResetPassword from "./components/Auth/ResetPassword";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { API_BASE_URL } from "./config";
 import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
 import Home from "./components/Home/Home";
@@ -34,7 +35,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/getuser",
+          `${API_BASE_URL}/api/v1/user/getuser`,
           {
             withCredentials: true,
           }

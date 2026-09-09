@@ -5,6 +5,7 @@ import { RiLock2Fill } from "react-icons/ri";
 import { Link, Navigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 import toast from "react-hot-toast";
 import { Context } from "../../main";
 
@@ -21,7 +22,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://hirehub-job-portal-6ed0.onrender.com/api/v1/user/login",
+        `${API_BASE_URL}/api/v1/user/login`,
         { email, password, role },
         {
           headers: {
